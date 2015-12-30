@@ -9,7 +9,7 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * @author Walter
  * Create all elements necessary to run the dining philosopher solution.
- * TODO: This styill needs some validation that this solves the problem accurately as 
+ * TODO: This still needs some validation that this solves the problem accurately as 
  * explained here: https://en.wikipedia.org/wiki/Dining_philosophers_problem
  */
 public class PhilosopherMain {

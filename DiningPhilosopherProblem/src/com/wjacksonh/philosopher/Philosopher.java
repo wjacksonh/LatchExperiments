@@ -32,8 +32,11 @@ public class Philosopher implements Runnable{
 				forkPair.putdownForks();
 			
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
+				System.out.println("Philosopher.run Inturupted");
+				
 				e.printStackTrace();
+				
+				Thread.currentThread().interrupt();
 			}
 		}
 	}
