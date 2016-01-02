@@ -1,5 +1,8 @@
 package com.wjacksonh.latchexperiments.latch;
 
+import com.wjacksonh.latchexperiments.latch.base.CountDownLatchFactory;
+import com.wjacksonh.latchexperiments.latch.base.CountDownLatchInterface;
+
 public class JavaCountDownLatchFactory implements CountDownLatchFactory {
 
 	@Override

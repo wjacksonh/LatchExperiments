@@ -2,6 +2,9 @@ package com.wjacksonh.latchexperiments.latch;
 
 import java.util.concurrent.CountDownLatch;
 
+import com.wjacksonh.latchexperiments.latch.base.CountDownLatchFactory;
+import com.wjacksonh.latchexperiments.latch.base.CountDownLatchInterface;
+
 public class MyCountDownLatchFactory implements CountDownLatchFactory {
 
 	@Override

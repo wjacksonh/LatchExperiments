@@ -1,7 +1,7 @@
 package com.wjacksonh.latchexperiments;
 
-import com.wjacksonh.latchexperiments.latch.CountDownLatchFactory;
-import com.wjacksonh.latchexperiments.latch.CountDownLatchInterface;
+import com.wjacksonh.latchexperiments.latch.base.CountDownLatchFactory;
+import com.wjacksonh.latchexperiments.latch.base.CountDownLatchInterface;
 
 public class TestLatchHarness {
 	

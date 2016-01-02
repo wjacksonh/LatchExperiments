@@ -3,6 +3,8 @@ package com.wjacksonh.latchexperiments.latch;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
+import com.wjacksonh.latchexperiments.latch.base.CountDownLatchInterface;
+
 public class MyCountDownLatch implements CountDownLatchInterface{
 
 	private boolean  latchLocked = true;
