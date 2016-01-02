@@ -1,14 +1,21 @@
 package com.wjacksonh.latchexperiments;
 
-import java.util.concurrent.CountDownLatch;
+import com.wjacksonh.latchexperiments.latch.CountDownLatchFactory;
+import com.wjacksonh.latchexperiments.latch.CountDownLatchInterface;
 
 public class TestLatchHarness {
+	
+	private final CountDownLatchFactory latchFactory;
 
+	public TestLatchHarness(CountDownLatchFactory latchFactory) {
+		this.latchFactory = latchFactory;
+	}
+	
 	public long timeTasks(int nThreads, final Runnable task)
 		throws InterruptedException {
 		
-		final CountDownLatch startGate = new CountDownLatch(1);
-		final CountDownLatch endGate = new CountDownLatch(nThreads);
+		final CountDownLatchInterface startGate = latchFactory.createStartGate();
+		final CountDownLatchInterface endGate = latchFactory.createEndGate(nThreads);
 		
 		for (int i = 0; i < nThreads; i++) {
 			
@@ -27,7 +34,8 @@ public class TestLatchHarness {
 							endGate.countDown();
 						}
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
+						Thread.currentThread().interrupt();
+						
 						e.printStackTrace();
 					}
 				}

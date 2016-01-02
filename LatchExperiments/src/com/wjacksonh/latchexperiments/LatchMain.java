@@ -1,10 +1,13 @@
 package com.wjacksonh.latchexperiments;
 
+import com.wjacksonh.latchexperiments.latch.JavaCountDownLatchFactory;
+import com.wjacksonh.latchexperiments.latch.MyCountDownLatchFactory;
+
 public class LatchMain {
 
 	public static void main(String[] args) {
-
-		TestLatchHarness harness = new TestLatchHarness();
+		
+		TestLatchHarness harness = new TestLatchHarness(new MyCountDownLatchFactory());
 		
 		try {
 			long time = harness.timeTasks(5, new Runnable() {
@@ -15,7 +18,8 @@ public class LatchMain {
 					try {
 						Thread.sleep(0, 100);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
+						Thread.currentThread().interrupt();
+						
 						e.printStackTrace();
 					}				
 				}
