@@ -28,7 +28,7 @@ public class LatchMain {
 			System.out.println("The harness took " + time + " nano secs.");
 			
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}

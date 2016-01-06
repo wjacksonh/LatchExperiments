@@ -7,10 +7,10 @@ import com.wjacksonh.latchexperiments.latch.base.CountDownLatchInterface;
 
 public class MyCountDownLatch implements CountDownLatchInterface{
 
-	private boolean  latchLocked = true;
-	private int      count = 0;
-	private final    ReentrantLock lock;
-	private final    Condition     cond;
+	private volatile boolean  latchLocked = true;
+	private int               count = 0;
+	private final             ReentrantLock lock;
+	private final             Condition     cond;
 	
 	public MyCountDownLatch(int count) {
 		
@@ -23,36 +23,57 @@ public class MyCountDownLatch implements CountDownLatchInterface{
 	@Override
 	public void countDown() {
 		
-		lock.lock();
-		try {
-		
-			if(latchLocked == true) {
+		/*
+		 * Once latch is unlocked no need to synchronize. 
+		 * NOTE: latchLocked is volatile
+		 */
+		if(latchLocked == true) {
 			
-				count--;
+			lock.lock();
+			try {
+				/*
+				 * Extra check since latch could have been unlocked 
+				 * while this thread was blocked
+				 */
+				if(latchLocked == true) {
 				
-				if(count == 0){
-					cond.signalAll();
+					count--;
 					
-					latchLocked = false;
-				}			
+					if(count == 0){
+						cond.signalAll();
+						
+						latchLocked = false;
+					}			
+				}
+			} finally {
+				lock.unlock();
 			}
-		} finally {
-			lock.unlock();
 		}
 	}
 	
 	@Override
 	public void await () throws InterruptedException {
-		lock.lock();
-		try {
-	
-			if(latchLocked == true){
-			
-				cond.await();
-			}
 		
-		} finally {
-			lock.unlock();
+		/*
+		 * Once latch is unlocked no need to synchronize. 
+		 * NOTE: latchLocked is volatile
+		 */
+		if(latchLocked == true) {
+			
+			lock.lock();
+			try {
+				/*
+				 * Extra check since latch could have been unlocked 
+				 * while this thread was blocked
+				 */
+				if(latchLocked == true) {
+				
+					cond.await();
+				}
+			
+			} finally {
+				lock.unlock();
+			}
 		}
 	}
 }
